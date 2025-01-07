@@ -4,12 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { PriceComponent } from './price/price.component';
 import { HelpcentreComponent } from './helpcentre/helpcentre.component';
+import { BarComponent } from './bar/bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PriceComponent,
-    HelpcentreComponent
+    HelpcentreComponent,
+    BarComponent
   ],
   imports: [
     BrowserModule

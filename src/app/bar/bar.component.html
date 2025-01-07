@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+
+</head>
+<body>
+<div class="h-screen bg-blue-700 ">
+    <div class="flex gap-3 w-[7vw] h-[5vh] bg-[#4c4c4c] text-white rounded-r-md">
+        <button (click)="menu()"  type="button"  class=" pl-4 relative "><i class="fa-solid fa-bars text-2xl"></i></button>
+        <span class="flex text-xs pt-2">Menu</span>
+        
+    </div>
+    
+      <div  [ngClass]="{'invisible': !isMenuOpen, 'visible': isMenuOpen}" 
+      id="sidebar" class="bg-[#f2f2f2]  h-[47vh] w-[18vw] shadow-xl border-[#4c4c4c] invisible transform transition-all ease-in-out duration-100"> <hr>
+        <ul class=" text-[#0576a7]  font-serif">
+          <div class="pl-4 pt-1 h-[5vh] hover:bg-[#427b01] hover:text-white"><li><a href="#">Renter tools</a></li></div>
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"> <li><a href="#">Manage Rentals</a></li></div><hr class="h-2">
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"><li><a href="#">Appartments for Rents</a></li></div>
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"><li><a href="#">House for Rents</a></li></div>
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"><li><a href="#">Condos for Rents</a></li></div>
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"><li><a href="#">Help Center</a></li></div><hr class="h-2">
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"> <li><a href="#">Rental Calculator</a></li></div>
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"> <li><a href="#">Blog</a></li></div> 
+          <div class="pl-4 h-[5vh] hover:bg-[#427b01] hover:text-white"><li><a href="#">Property Management</a></li></div>
+          
+
+        </ul>
+    </div>
+</div>
+
+</body>
+
+
+
