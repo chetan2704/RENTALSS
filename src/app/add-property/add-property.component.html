@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header"> Add New property?
+
+        </div>
+        <div class="card-body">
+            <form>
+                <div>
+                    <tabset #staticTabs>
+                      <!--FIRST TAB-->
+                      <tab heading="basic info" id="tab0">
+                        <div>
+                        <label for="phone" class="block">phone no*</label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+                        </div>
+                        <div>
+                        <label for="email" class="block">email address*</label>
+                        <input type="email" id="email" pattern=".+@example.com" size="30" required />
+                       </div>
+                       <div>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(1)">next</button>
+                       </div>
+                      </tab>
+                      <!--SECOND TAB-->
+                      <tab heading="property-details" id="tab1"> 
+                        <div>
+                             <label for="name" class="block">name</label>
+                             <input type="text" id="name" name="name" required minlength="10" maxlength="20" size="10" />
+                        </div>
+                        <div>
+                          <label for="address" class="block">Address</label>
+                          <input type="text" id="address" name="address" required>
+                        </div>
+                        <div>
+                          <label for="roomno" class="block">Appartment number :</label>
+                          <input type="number" id="aptNumber" name="aptNumber" required>
+                        </div>
+                        <div>
+                          <label for="type" class="block">type:</label>
+                          <input type="text" id="type" name="type" required>
+                        </div>
+                        <div>
+                          <label for="size" class="block">size :</label>
+                          <input type="number" id="size" name="size" required>
+                        </div>
+                        <div>
+                          <label for="city" class="block">city :</label>
+                          <input type="text" id="city" name="city" required>
+                        </div>
+                        <div>
+                          <label for="state" class="block">state :</label>
+                          <input type="text" id="state" name="state" required>
+                        </div>
+                        <div>
+                          <label for="country" class="block">country :</label>
+                          <input type="text" id="country" name="country" required>
+                        </div>
+                        <div>
+                          <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(2)">next</button>
+                          <button type="button" class="btn btn-primary btn-block" (click)="selectTab(0)">back</button>
+                          
+                         </div>
+
+
+                      </tab>
+                      <!--THIRD TAB-->
+                      <tab heading="About-property" id="tab2"> 
+                        <div>
+                          <label for="description" class="block">Property-description</label>
+                          <input type="text" id="description" name="description" required>
+                        </div>
+                        <div>
+                          <label for="features" class="block">Appartment features </label>
+                          <input type="text" id="features" name="features" required>
+                        </div>
+                        <div>
+                          <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(3)">next</button>
+                          <button type="button" class="btn btn-primary btn-block" (click)="selectTab(1)">back</button>
+                          
+                         </div>
+                      </tab>
+                      <!--FOURTH TAB-->
+                      <tab heading="units" id="tab3">
+                        <div>
+                          <label for="price" >price :</label>
+                          <input type="number" id="price" name="price" required><span>&#x20b9;</span>
+                        </div>
+                        <div>
+                          <label for="area" >Usable-area :</label>
+                          <input type="number" id="usableArea" name="usableArea" required>
+                        </div>
+                        <div>
+                          <label for="Measure unit" >Measure unit:</label>
+                          <input type="text" id="measureUnit" name="measureUnit" required>
+                        </div>
+                        <div>
+                          <label for="avaialble" >avaialbleFrom:</label>
+                          <input type="datetime-local" id="avaialbleFrom" name="avaialbleFrom" required>
+                        </div>
+                        <div>
+                          <label for="furnishing" class="block">Furnishing:</label>
+                          <input type="radio" id="type" name="type" value="">
+                          <label for="type1"> semi-furnished</label><br>
+                         <input type="radio" id="type" name="type" value="">
+                          <label for="type2"> fully-furnished</label><br>
+                        </div>
+                        <div>
+                          <label for="highlights" class=" block">highlights:</label>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL1"> Bed</label><br>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL2"> Air Conditionig</label><br>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL3"> wifi</label><br>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL4"> High Speed Internet Acess</label><br>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL5"> Washer/Dryer</label><br>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL6">Refrigerator</label><br>
+                          <input type="checkbox" id="highlights" name="highlights" value="">
+                          <label for="HL7"> freezer</label><br>
+
+                        </div>
+                        <div>
+                          <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(4)">next</button>
+                          <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2)">back</button>
+                          
+                         </div>
+                        
+                        
+                        
+                      </tab>
+                      <tab heading="photos" id="tab4">
+                        <div>
+                        <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3)">back</button>
+                        </div>
+
+                      </tab>
+
+                    </tabset>
+                  </div>
+               
+                   
+            </form>
+            
+        </div>
+
+    </div>
+    
+</body>
+
+</html>

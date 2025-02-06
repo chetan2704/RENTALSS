@@ -5,16 +5,20 @@ import { AppComponent } from './app.component';
 import { PriceComponent } from './price/price.component';
 import { HelpcentreComponent } from './helpcentre/helpcentre.component';
 import { BarComponent } from './bar/bar.component';
+import { AddPropertyComponent } from './add-property/add-property.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
     AppComponent,
     PriceComponent,
     HelpcentreComponent,
-    BarComponent
+    BarComponent,
+    AddPropertyComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    TabsModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
