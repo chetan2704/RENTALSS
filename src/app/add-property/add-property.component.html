@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body class="">
     <div class="card">
         <div class="card-header"> Add New property?
 
@@ -16,13 +16,13 @@
                     <tabset #staticTabs>
                       <!--FIRST TAB-->
                       <tab heading="basic info" id="tab0">
-                        <div>
+                        <div class="">
                         <label for="phone" class="block">phone no*</label>
-                        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4} " class="border-2 border-red-600" required />
                         </div>
                         <div>
                         <label for="email" class="block">email address*</label>
-                        <input type="email" id="email" pattern=".+@example.com" size="30" required />
+                        <input type="email" id="email" pattern=".+@example.com" size="30" required class="border-2 border-red-600" />
                        </div>
                        <div>
                         <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(1)">next</button>
@@ -32,36 +32,78 @@
                       <tab heading="property-details" id="tab1"> 
                         <div>
                              <label for="name" class="block">name</label>
-                             <input type="text" id="name" name="name" required minlength="10" maxlength="20" size="10" />
+                             <input type="text" id="name" name="name" required minlength="10" maxlength="20" size="10" class="border-2 border-red-600" />
                         </div>
                         <div>
-                          <label for="address" class="block">Address</label>
-                          <input type="text" id="address" name="address" required>
+                          <label for="address" class="block">Location -details:</label>
+                          <label for="adress1" class="block">address1</label>
+                          <input type="text" id="address" name="address" required class="border-2 border-red-600" >
                         </div>
                         <div>
-                          <label for="roomno" class="block">Appartment number :</label>
-                          <input type="number" id="aptNumber" name="aptNumber" required>
+                          <label for="aptno"class="">aptNumber</label>
+                          <input type="number" id="aptNumber" name="apt no" required class="border-2 border-red-600" >
                         </div>
                         <div>
-                          <label for="type" class="block">type:</label>
-                          <input type="text" id="type" name="type" required>
+                          <label for="city" class>city</label>
+                          <select name="city" id="city">
+                          <option value="" >--Please choose an option--</option>
+                          <option value="Mumbai" >Mumbai</option>
+                          <option value="Pune" >Pune</option>
+                          <option value="Nashik" >Nashik</option>
+                          <option value="Delhi" >Nashik</option>
+                          </select>
+                        </div>
+                         <div>
+                          <label for="state" class>state :</label>
+                          <select name="state" id="state">
+                          <option value="">--Please choose an option--</option>
+                         <option value="Maharashtra" >Maharashtra</option>
+                         <option value="Gujarat" >Gujarat</option>
+                         <option value="karnataka" >karnataka</option>
+                         <option value="Goa">Goa</option>
+                         </select>
                         </div>
                         <div>
-                          <label for="size" class="block">size :</label>
-                          <input type="number" id="size" name="size" required>
+                          <label for="country" class>Country :</label>
+                          <input list="country" name="country" class="datalist-input" />
+                         <datalist id="country">
+                        <option value="india" >
+                        </datalist>
+                          
+                        </div>
+
+                        <div>
+                          <label for="zipcode" class="block">zipcode :</label>
+                          <input type="number" id="zipcode" name="zipcode" max="9" required class="border-2 border-red-600" >
+
                         </div>
                         <div>
-                          <label for="city" class="block">city :</label>
-                          <input type="text" id="city" name="city" required>
+                          <label for="area" class="block">area :</label>
+                          <input type="text" id="area" name="area" required class="border-2 border-red-600" >
                         </div>
                         <div>
-                          <label for="state" class="block">state :</label>
-                          <input type="text" id="state" name="state" required>
+                          <label for="type" class="block">type :</label>
+                          <input type="radio" id="type" name="type"  value="Residental-appartment"required><label>Residental-appartment</label>
+                          <input type="radio" id="type" name="type"  value="Penthouse"required><label>Penthouse</label>
+                          <input type="radio" id="type" name="type"  value="Luxury appartmnet"required><label>Luxury appartmnet</label>
+                          <input type="radio" id="type" name="type"  value="Studio-appartment"required><label>Studio-appartment</label>
                         </div>
                         <div>
-                          <label for="country" class="block">country :</label>
-                          <input type="text" id="country" name="country" required>
+                          <label for="amenities" class="block" >Available-amenities</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Parking" required><label>Parking</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Laundry" required><label>Laundry</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Fitness Area" required><label>Fitness Area</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Playing Area" required><label>Playing Area</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Security" required><label>Security</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Internet" required><label>Internet Acess</label>
+                          <input type="checkbox" id="amenities" name="amenities" value="Pool" required><label>Pool</label>
                         </div>
+                        <div>
+                          <label for="officeHours" class="block">Contact this property at</label>
+                          <label>Phone :</label><input type="tel" id="officeHours" name="officeHours" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="block" required class="border-2 border-red-600" />
+                          <label>Email : </label> <input type="email" id="email" pattern=".+@example.com" size="30" required class="border-2 border-red-600" />
+                        </div>
+                        
                         <div>
                           <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(2)">next</button>
                           <button type="button" class="btn btn-primary btn-block" (click)="selectTab(0)">back</button>
@@ -73,12 +115,16 @@
                       <!--THIRD TAB-->
                       <tab heading="About-property" id="tab2"> 
                         <div>
+                          <label for="title">property-name</label>
+                          <input type="text" id="title" name="title" required class="border-2 border-red-600" >
+                         </div>
+                        <div>
                           <label for="description" class="block">Property-description</label>
-                          <input type="text" id="description" name="description" required>
+                          <textarea name="description" cols="50" rows="10" required placeholder="write details about your property "></textarea>
                         </div>
                         <div>
                           <label for="features" class="block">Appartment features </label>
-                          <input type="text" id="features" name="features" required>
+                          <textarea name="features" cols="50" rows="10"  required placeholder="write the features of your appartmnet"></textarea>
                         </div>
                         <div>
                           <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(3)">next</button>
@@ -87,22 +133,80 @@
                          </div>
                       </tab>
                       <!--FOURTH TAB-->
+                      <tab heading="Neighbourhood" id="tab4">
+                        
+                        <div>
+                            <label for="description" class="block">Neighbourhood details :</label>
+                            <textarea name="description" cols="50" rows="10" required></textarea>
+                        </div>
+                        <div>
+                          <label for="schools" class="block">School Nearby :</label>
+                          <label class="block">school adress :</label><input type="text" id="schools" required class="border-2 border-red-600" >
+                          <label class="block">distance :</label><input type="text" id="schools" required class="border-2 border-red-600" >
+                        </div>
+                        <div>
+                        <label for="type">School Type :</label>
+
+                        <select name="type" id="type">
+                          <option value="">--Please choose an option--</option>
+                          <option value="Public High School">Public High School</option>
+                          <option value="Government School">Government School"</option>
+                          <option value="Convent School">Convent School"</option>
+                          <option value="International School">"International School</option>
+                         </select>
+                        </div>
+                         <div>
+                          <label for="rating"> School-Rating</label>
+                          <input type="number"  id="rating" name="rating" min="0" max="10" class="border-2 border-red-600" >
+                         </div>
+
+                         <div>
+                          <label for="hospital" class="block">Hospital near by</label>
+                          <label class="block"> Name of Hospital</label><input type="text" id=" hospital" name="hospital" required class="border-2 border-red-600" >
+                          <label class="block"> Address of Hospital</label><textarea name="hospital" rows="10" cols="20" placeholder="address" ></textarea>
+
+                         </div>
+                         <div>
+                          <label class="block">distance :</label><input type="text" id="hospital" required class="border-2 border-red-600" >
+                         </div>
+                         <div>
+                        <label for="hospital">Hospital Type :</label>
+
+                        <select name="hospital" id="hospital">
+                          <option value="">--Please choose an option--</option>
+                          <option value="Public hospital">Public hospital </option>
+                          <option value="Government hospital">Government hospital</option>
+                        </select>
+                        </div>
+                        <div>
+                          <label class="block">Ratings :</label><input type="number" id="hospital" name="highlights" min="0" max="10" required class="border-2 border-red-600" >
+                         </div>
+                         
+                        
+                        <div>
+                          
+                        <button type="button" class="btn btn-primary btn-block" (click)="selectTab(4)">next</button>
+                        <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2)">back</button>
+                        </div>
+
+                      </tab>
+                      <!--FIFTHH TAB-->
                       <tab heading="units" id="tab3">
                         <div>
                           <label for="price" >price :</label>
-                          <input type="number" id="price" name="price" required><span>&#x20b9;</span>
+                          <input type="number" id="price" name="price" required class="border-2 border-red-600" ><span>&#x20b9;</span>
                         </div>
                         <div>
                           <label for="area" >Usable-area :</label>
-                          <input type="number" id="usableArea" name="usableArea" required>
+                          <input type="number" id="usableArea" name="usableArea" required class="border-2 border-red-600" >
                         </div>
                         <div>
                           <label for="Measure unit" >Measure unit:</label>
-                          <input type="text" id="measureUnit" name="measureUnit" required>
+                          <input type="text" id="measureUnit" name="measureUnit" required class="border-2 border-red-600" >
                         </div>
                         <div>
                           <label for="avaialble" >avaialbleFrom:</label>
-                          <input type="datetime-local" id="avaialbleFrom" name="avaialbleFrom" required>
+                          <input type="datetime-local" id="avaialbleFrom" name="avaialbleFrom" required >
                         </div>
                         <div>
                           <label for="furnishing" class="block">Furnishing:</label>
@@ -127,20 +231,39 @@
                           <label for="HL6">Refrigerator</label><br>
                           <input type="checkbox" id="highlights" name="highlights" value="">
                           <label for="HL7"> freezer</label><br>
-
+                          <label for="" class="block"> Any other highlights :</label>
+                          <textarea rows="10" col="100" id="highlights" name="highlights"> </textarea>
+ 
                         </div>
                         <div>
-                          <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(4)">next</button>
-                          <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2)">back</button>
+                          <button type="button" class="btn btn-primary btn-block block" (click)="selectTab(5)">next</button>
+                          <button type="button" class="btn btn-primary btn-block" (click)="selectTab(4)">back</button>
                           
                          </div>
                         
                         
                         
                       </tab>
+                      <!--SIXTH TAB-->
                       <tab heading="photos" id="tab4">
                         <div>
-                        <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3)">back</button>
+                          <label for="ImageGallery" class="">picture of room</label>
+                          <input type="file" id="ImageGallery" class="" accept="image/*" />
+                          <input type="file" id="ImageGallery" class="" accept="image/*" />
+                          <input type="file" id="ImageGallery" class="" accept="image/*" />
+                        </div>
+                        <div>
+                          <label for="floorPlan" class="">Picture of Floor-Plan</label>
+                          
+                          <input type="file" id="ImageGallery" class="" accept="image/*" />
+
+                        </div>
+                        <div>
+                        <button type="button" class="btn btn-primary btn-block" (click)="selectTab(4)">back</button>
+                        </div>
+                        <div>
+                          <button type="submit" class="border-3 bg-slate-600 rounded-md text-xs text-center">ADD this PROPRTY</button>
+                        
                         </div>
 
                       </tab>
