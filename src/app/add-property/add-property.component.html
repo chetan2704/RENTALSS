@@ -11,8 +11,8 @@
   <div class="card">
     <div class="card-header">Add New property?</div>
     <div class="card-body">
-      <form>
-        <div class="container bg-[#ecf3f9] h-[87vh] w-[76vw] rounded-md">
+      <form [formGroup]="propertyForm" (ngSubmit)="onSubmit">
+        <div class="container bg-[#ecf3f9] h-[98vh] w-[76vw] rounded-md">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button
@@ -60,30 +60,34 @@
           </ul>
           <div class="tab-content" id="myTabContent">
             <!--FIRSTtab:personal details-->
-            <div class="ml-4 tab-pane fade show active" id="Basic-Info" role="tabpanel" aria-labelledby="home-tab">
+            <div class="ml-4 tab-pane fade show active "  id="Basic-Info" role="tabpanel" aria-labelledby="home-tab">
                 <div class="mt-3">
                    <label for="phone" class="block text-lg pl-4">Phone number :</label>
                    <input type="tel" formControlName="phone"
-                    id="phone"  name="phone" pattern='^[6-9]\\d{9}$' placeholder="9*********"
-                    class="ml-4 mt-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm" required/>
-                    <div *ngIf="propertyForm.get('phone')?.invalid && propertyForm.get('phone')?.touched" class="text-danger ml-4">
-                      Please enter a valid phone number
+                    id="phone"  name="phone"  pattern='^[7-9]{1}[0-9]{9}$' placeholder="9123456789"
+                    class="ml-4 pl-2 mt-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm" required/>
+                    <div *ngIf="propertyForm.get('phone')?.invalid && propertyForm.get('phone')?.touched" class="text-danger  ml-4">
+                      <small *ngIf="propertyForm.get('phone')?.errors?.['required']">Phone number is required</small>
+                      <small *ngIf="propertyForm.get('phone')?.errors?.['pattern']">Please enter a valid 10-digit number starting with 7-9</small>
                     </div>
                 </div>
                 <div class="pt-4">
                   <label for="email" class="block text-lg pl-4">Email Address :</label>
                   <input
-                    type="email" id="email" formControlName="email"
-                     pattern="'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'" size="30" required class="ml-4 mt-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                    type="email" id="email" formControlName="email" placeholder="abc123@gmail.com"
+                     pattern="" size="30" required class="ml-4 pl-2 mt-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                      <div *ngIf="propertyForm.get('email')?.invalid && propertyForm.get('email')?.touched" class="text-danger ml-4">
-                      Please enter a valid email address
+                      <small *ngIf="propertyForm.get('email')?.errors?.['required']">Email is required</small>
+                      <small *ngIf="propertyForm.get('email')?.errors?.['email']">Please enter a valid email address</small>
                     </div>
                 </div>
-  
+                   
+
+                
                 <!--button will be here-->
 
 
-                <div class="mt-4 text-right">
+                <div class="mt-4 ml-4">
                   <button type="button" class="btn btn-primary next-btn" data-target="#propertyDetails-tab">
                     Next <i class="fa-solid fa-arrow-right"></i>
                   </button>
@@ -98,50 +102,65 @@
                 <div class="mt-3">
                 <label for="name" class="">Property-Name :</label>
                 <input
-                  type="text" id="name" name="name" required minlength="10" maxlength="20" size="10" 
+                  type="text" id="name" name="name" formControlName="name"   
                   placeholder="ex.shanti niketan" class="ml-3 pl-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                  <div *ngIf="propertyForm.get('name')?.invalid && propertyForm.get('name')?.touched" class="text-danger">
+                    <small *ngIf="propertyForm.get('name2')?.errors?.['required']">Property name is required</small>
+                  </div>
                 </div>
                 <!--propertyadress-->
                 <div class="mt-4 flex gap-44">
                   <div>
                     <label for="adress1" class="block">Address1:</label>
-                    <textarea name="address1" class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                    <textarea name="address1" formControlName="address1" class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                    <div *ngIf="propertyForm.get('address1')?.invalid && propertyForm.get('address1')?.touched" class="text-danger">
+                      <small *ngIf="propertyForm.get('address1')?.errors?.['required']">Address is required</small>
+                    </div>
                   </div>
                   <div>
                     <label for="aptno" class="block">AptNumber :</label>
                     <input
-                      type="number" id="aptNumber" name="aptno" required class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                      type="number" id="aptNumber"  formControlName="aptNumber" name="aptno" required class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                      <div *ngIf="propertyForm.get('aptNumber')?.invalid && propertyForm.get('aptNumber')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('aptNumber')?.errors?.['required']">Apartment number is required</small>
+                      </div>
                   </div>
                 </div>
                 <!--for city/state/countryy-->
                 <div class="mt-3 flex gap-16">
                      <div>
                        <label for="city" class="block">City :</label>
-                       <select name="city" id="city " class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
+                       <select name="city" id="city " formControlName="city" class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
                        <option value="">--Please choose an option--</option>
                        <option value="Mumbai">Mumbai</option>
                        <option value="Pune">Pune</option>
                        <option value="Nashik">Nashik</option>
                        <option value="Delhi">Delhi</option>
                         </select>
+                        <div *ngIf="propertyForm.get('city')?.invalid && propertyForm.get('city')?.touched" class="text-danger">
+                          <small *ngIf="propertyForm.get('city')?.errors?.['required']">Please select a city</small>
+                        </div>
                      </div>
 
                      <div>
                       <label for="state" class="block">state :</label>
-                      <select name="state" id="state" class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
+                      <select name="state" id="state" formControlName="state" class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
                         <option value="">--Please choose an option--</option>
                         <option value="Maharashtra">Maharashtra</option>
                         <option value="Gujarat">Gujarat</option>
                         <option value="karnataka">karnataka</option>
                         <option value="Goa">Goa</option>
                       </select>
+                         <div *ngIf="propertyForm.get('state')?.invalid && propertyForm.get('state')?.touched" class="text-danger">
+                           <small *ngIf="propertyForm.get('state')?.errors?.['required']">Please select a state</small>
+                         </div>
                      </div>
 
                      <div>
                       <label for="country" class="block">Country :</label>
-                      <select name="country" id="country" class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
+                      <select name="country" id="country" formControlName="country"class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
                         <option value="">--Please choose an option--</option>
-                        <option value="Maharashtra">India</option>
+                        <option value="India">India</option>
                       </select>
                      </div>
                  </div>
@@ -149,34 +168,42 @@
                  <div class="mt-3 flex gap-16">
                       <div>
                         <label for="zipcode" class="block">zipcode :</label>
-                       <input type="number" id="zipcode" name="zipcode" max="9" required class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                       <input type="number" id="zipcode" formControlName="zipcode" name="zipcode" max="9" required class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                       
                      </div>
                      <div>
                         <label for="area" class="block">area :</label>
-                        <input type="text" id="area" name="area" required class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                        <input type="text" id="area" formControlName="area"name="area" required class="mt-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                        <div *ngIf="propertyForm.get('area')?.invalid && propertyForm.get('area')?.touched" class="text-danger">
+                          <small *ngIf="propertyForm.get('area')?.errors?.['required']">Area is required</small>
+                        </div>
                      </div>
                   </div>
                   <!--appttype-->
                   <div class="mt-2">
                      <label for="type" class="block">Appartment Type :</label>
                        <div class="mt-3 flex gap-10">
-                          <span> <input type="radio" id="type" name="type" value="Residental-appartment" required/><label class="ml-2">Residental-appartment</label></span>
-                          <span><input type="radio" id="type" name="type" value="Penthouse" required/><label class="ml-2">Penthouse</label></span>
-                          <span><input  type="radio" id="type"name="type" value="Luxury appartmnet" required><label class="ml-2">Luxury appartmnet</label></span>
-                          <span><input type="radio" id="type" name="type" value="Studio-appartment" required/><label class="ml-2">Studio-appartment</label></span>
+                          <span> <input type="radio" id="type" formControlName="appartmentType" name="type" value="Residental-appartment" required/><label class="ml-2">Residental-appartment</label></span>
+                          <span><input type="radio" id="type" formControlName="appartmentType" name="type" value="Penthouse" required/><label class="ml-2">Penthouse</label></span>
+                          <span><input  type="radio" id="type" formControlName="appartmentType" name="type" value="Luxury appartmnet" required><label class="ml-2">Luxury appartmnet</label></span>
+                          <span><input type="radio" id="type" formControlName="appartmentType"  name="type" value="Studio-appartment" required/><label class="ml-2">Studio-appartment</label></span>
                        </div>
+                       <div *ngIf="propertyForm.get('appartmentType')?.invalid && propertyForm.get('appartmentType')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('appartmentType')?.errors?.['required']">Please select an apartment type</small>
+                      </div>
+
                   </div>
                   <!--ammenities-->
                   <div class="mt-2">
                        <label for="amenities" class="block">Available-amenities :</label>
                           <div class="mt-2 flex gap-10">
-                            <span><input type="checkbox" id="amenities"  name="amenities"  value="Parking" /><label class="ml-2">Parking</label></span>
-                            <span><input type="checkbox" id="amenities"  name="amenities" value="Laundry" /><label class="ml-2">Laundry</label></span>
-                            <span><input type="checkbox" id="amenities" name="amenities" value="Fitness Area"  /><label class="ml-2">Fitness Area</label></span>
-                            <span><input type="checkbox" id="amenities" name="amenities" value="Playing Area" /><label class="ml-2">Playing Area</label></span>
-                            <span><input type="checkbox" id="amenities" name="amenities" value="Security" /><label class="ml-2">Security</label></span>
-                            <span><input type="checkbox" id="amenities" name="amenities" value="Internet" /><label class="ml-2">Internet Acess</label></span>
-                            <span><input  type="checkbox"  id="amenities" name="amenities" value="Pool" /><label class="ml-2">Pool</label></span>
+                            <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities"  value="Parking"/><label class="ml-2">Parking</label></span>
+                            <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Laundry" /><label class="ml-2">Laundry</label></span>
+                            <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Fitness Area"  /><label class="ml-2">Fitness Area</label></span>
+                            <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Playing Area" /><label class="ml-2">Playing Area</label></span>
+                            <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Security" /><label class="ml-2">Security</label></span>
+                            <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Internet" /><label class="ml-2">Internet Acess</label></span>
+                            <span><input  type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Pool" /><label class="ml-2">Pool</label></span>
                           </div>  
                   </div>
                   <!--contact at--> 
@@ -185,21 +212,33 @@
                        <div class="mt-2 flex gap-10">
                           <div>
                              <label>Phone :</label><input type="tel"
-                            id="officeHours" name="officeHours"pattern="[6-9][0-9]{9}" class="block" required  placeholder="9*********"
+                            id="officeHours" formControlName="phone2" name="officeHours"pattern="^[7-9]{1}[0-9]{9}$" class="block" required  placeholder="9*********"
                             class="w-64 h-8 pl-2 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                            <div *ngIf="propertyForm.get('phone2')?.invalid && propertyForm.get('phone2')?.touched" class="text-danger">
+                              <small *ngIf="propertyForm.get('phone2')?.errors?.['required']">Contact phone is required</small>
+                              <small *ngIf="propertyForm.get('phone2')?.errors?.['pattern']">Please enter a valid 10-digit number</small>
+                            </div>
+                          
                           </div>
                           <div>
-                            <label>Email : </label> <input type="email"
-                              id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"size="30"required placeholder="abc123@gmail.com"
+                            <label>Email : </label> 
+                            <input type="email" id="email" formControlName="email2"  pattern=""size="30"required placeholder="abc123@gmail.com"
                               class="pl-3 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                              <div *ngIf="propertyForm.get('email2')?.invalid && propertyForm.get('email2')?.touched" class="text-danger">
+                                <small *ngIf="propertyForm.get('email2')?.errors?.['required']">Contact email is required</small>
+                                <small *ngIf="propertyForm.get('email2')?.errors?.['pattern']">Please enter a valid email address</small>
+                              </div>
+                               
                           </div>
                        </div>
                   </div>
         
-      
+                        
+                
+
 
                <!--butoon will come here-->
-               <div class="mt-4 text-right">
+               <div class="mt-4 ">
                 <button type="button" class="btn btn-secondary back-btn" data-target="#home-tab">
                   <i class="fa-solid fa-arrow-left"></i> Back
                 </button>
@@ -220,27 +259,36 @@
                   <!--property name-->
                   <div>
                      <label for="title" class="block">Property-Name :</label>
-                      <input type="text" id="title" name="title" required class="mt-2 pl-3 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                      <input type="text" id="title" formControlName="name2" name="title" required class="mt-2 pl-3 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
+                      <div *ngIf="propertyForm.get('name2')?.invalid && propertyForm.get('name2')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('name2')?.errors?.['required']">Property name is required</small>
+                      </div>
                   </div>
                   <!--property-description-->
                   <div class="mt-5">
                       <label for="description" class="block" >Property-Description :</label>
-                      <textarea name="description"  required
+                      <textarea name="description"  required formControlName="description"
                       placeholder="....Write details about your property... "
                       class="mt-2 pl-3 w-96 h-24 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                      <div *ngIf="propertyForm.get('description')?.invalid && propertyForm.get('description')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('description')?.errors?.['required']">Property description is required</small>
+                      </div>
                   </div>
                   <!--property feature-->
                   <div class="mt-5">
                       <label for="features" class="block"  >Appartment features :</label>
-                     <textarea name="features" required
+                     <textarea name="features" required formControlName="features"
                       placeholder="....write the features of your appartmnet..."
                       class="mt-2 pl-3 w-96 h-24 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                      <div *ngIf="propertyForm.get('features')?.invalid && propertyForm.get('features')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('features')?.errors?.['required']">Features description is required</small>
+                      </div>
                   </div>
     
     
 
              <!--button will be here-->
-             <div class="mt-4 text-right">
+             <div class="mt-6">
               <button type="button" class="btn btn-secondary back-btn" data-target="#propertyDetails-tab">
                 <i class="fa-solid fa-arrow-left"></i> Back
               </button>
@@ -262,31 +310,41 @@
                    <!--neihbourhood description-->
                    <div>
                       <label for="description" class="block mt-3">Neighbourhood Details :</label>
-                     <textarea name="description" required placeholder="....write the Neighbourhood /surrounding's of your appartmnet..."
+                     <textarea name="description"  formControlName="Neighbourhood_Description" required placeholder="....write the Neighbourhood /surrounding's of your appartmnet..."
                       class="mt-2 pl-3 pt-1 w-96 h-20 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                      <div *ngIf="propertyForm.get('Neighbourhood_Description')?.invalid && propertyForm.get('Neighbourhood_Description')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('Neighbourhood_Description')?.errors?.['required']">Neighbourhood description is required</small>
+                      </div>
                    </div>
                    <!--school details-->
                    <div>
-                     <label class="block"> School's Name :</label><input type="text" id=" school" placeholder="School nearby.. "required
+                     <label class="block"> School's Name :</label><input type="text" id=" school" formControlName="schoolname" 
+                     placeholder="School nearby.. "required
                       class="pl-1 pt-1 bg-[#e2dfd2] rounded-md border-gray-600 shadow-sm"/>
+                      <div *ngIf="propertyForm.get('schoolname')?.invalid && propertyForm.get('schoolname')?.touched" class="text-danger">
+                        <small *ngIf="propertyForm.get('schoolname')?.errors?.['required']">School name is required</small>
+                      </div>
                   </div>
                   <!--schl-address and distance-->
                   <div class="mt-2 flex gap-40">
                        <div>
                         <label class="block">School Address :</label>
-                        <textarea  name="features"  required  placeholder="....Address of school..." class="mt-2 pl-3 pt-1 w-96 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                        <textarea  name="features"  required  formControlName="schooladdress"  
+                        placeholder="....Address of school..." class="mt-2 pl-3 pt-1 w-96 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
+                        
                       </div>
                       <div>
                         <label class="block">Distance :</label>
-                        <input type="text"  id="schools" placeholder="ex. 2km" required
+                        <input type="text"  id="schools" placeholder="ex. 2km" required formControlName="school_distance" 
                          class="mt-2 pl-2 pt-1 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                       </div>
                   </div>
-                  <!--schltype and distance-->
+                  <!--schltype and ratings-->
                   <div class="mt-2 flex gap-[310px]">
                        <div>
                            <label for="type" class="block">School Type :</label>
-                           <select name="type" id="type" class="mt-2 pl-3 pt-1 w-70 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
+                           <select name="type" id="type"  formControlName="school_type" required
+                           class="mt-2 pl-3 pt-1 w-70 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
                            <option value="">--Please choose an option--</option>
                            <option value="Public High School"> Public High School</option>
                            <option value="Government School">Government School</option>
@@ -296,26 +354,26 @@
                        </div>
                        <div>
                            <label for="rating" class="block">School-Rating [0-10] :</label>
-                            <input type="number" id="rating" name="rating" min="0" max="10"
+                            <input type="number" id="rating" required formControLName="school_rating" name="rating" min="0" max="10"
                             class="mt-2 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                        </div>
                   </div>
                   <!--hospital details-->
                   <div class="mt-2">
                         <label class="block"> Hospital Name :</label>
-                       <input type="text" id=" hospital" placeholder="Hospital nearby.. " required
+                       <input type="text" id=" hospital" formControlName="hospital_name"placeholder="Hospital nearby.. " required
                         class="mt-2 pl-1 pt-1 bg-[#e2dfd2] rounded-md border-gray-600 shadow-sm"/>
                   </div>
                   <!--hospital adress and distance-->
                   <div class="mt-2 flex gap-40">
                        <div>
                            <label class="block"> Hospital-Address</label>
-                           <textarea name="features"  required  placeholder="....Address of school..."
+                           <textarea name="features"  required  formControlName="hospital_address" placeholder="....Address of school..."
                            class="mt-2 pl-3 pt-1 w-96 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
                        </div>
                        <div>
                             <label class="block">Distance :</label>
-                            <input type="text" id="hospital" placeholder="ex. 2km" required
+                            <input type="text" id="hospital"  formControlName="hospital_distance" placeholder="ex. 2km" required
                            class="mt-2 pl-2 pt-1 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                       </div>
                   </div>
@@ -323,7 +381,8 @@
                   <div class="flex gap-[310px]">
                        <div>
                            <label for="hospital" class="block">Hospital Type :</label>
-                            <select name="hospital" id="hospital" class="mt-2 pl-3 pt-1 w-70 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
+                            <select name="hospital" id="hospital"  formControlName="hospital_type" required
+                            class="mt-2 pl-3 pt-1 w-70 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm">
                             <option value="">--Please choose an option--</option>
                             <option value="Public hospital">Public hospital</option>
                             <option value="Government hospital">Government hospital</option>
@@ -331,14 +390,14 @@
                        </div>
                        <div>
                            <label class="block">Hospital Ratings [0-10] :</label>
-                           <input type="number" id="hospital" name="highlights" min="0"  max="10"  required
+                           <input type="number" id="hospital" name="highlights" min="0"  max="10"  required formControLName="hospital_rating" 
                             class="mt-2 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                        </div>
                   </div>
     
       
              <!--button will be here-->
-             <div class="mt-4 text-right">
+             <div class="mt-3">
               <button type="button" class="btn btn-secondary back-btn" data-target="#AboutProperty-tab">
                 <i class="fa-solid fa-arrow-left"></i> Back
               </button>
@@ -360,26 +419,26 @@
                        <!--price-->
                       <div class="">
                          <label for="price" class="block">Price :</label>
-                         <input  type="number"  id="price"  name="price"  required  placeholder="ex :50,00,000"
+                         <input  type="number"  id="price"  name="price"  formControlName="price" required  placeholder="ex :50,00,000"
                          class="mt-2 pl-2 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/><span>&#x20b9;</span>
                       </div>
                       <!--usable are-->
                       <div>
                           <label for="area" class="block">Usable-area :</label>
-                          <input type="number"  id="usableArea"  name="usableArea"  required  placeholder="ex:615"
+                          <input type="number"  id="usableArea"  name="usableArea"  formControlName="usable_area" required  placeholder="ex:615"
                           class="mt-2 pl-2 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm" />
                      </div>
                      <!--measureunit-->
                      <div>
                           <label for="Measure unit" class="block">Measure unit:</label>
-                          <input type="text"  id="measureUnit"  name="measureUnit"  required  placeholder="ex.Sqft"
+                          <input type="text"  id="measureUnit"  name="measureUnit" formControlName="measure_Unit"required  placeholder="ex.Sqft"
                            class="mt-2 pl-2 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm" />
                     </div>
                  </div>
                  <!--date time-->
                  <div class="mt-3">
                        <label for="avaialble" class="block">Avaialble From :</label>
-                       <input type="datetime-local" id="avaialbleFrom"  name="avaialbleFrom"  required
+                       <input type="date" id="avaialbleFrom"  name="avaialbleFrom"  required  formControlName="avaialble_From"
                        class="mt-2 h-10 pl-2 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                  </div>
                  <!--furnishing-->
@@ -387,11 +446,11 @@
                       <label for="furnishing" class="block">Furnishing :</label>
                        <div class="mt-2 ml-3 flex gap-8">
                          <div>
-                             <input type="radio" id="type" name="type" value="" />
+                             <input type="radio" id="type" formControlName="furnishing" name="type" value="Semi-Furnished" />
                              <label for="type1" class="ml-2"> Semi-Furnished</label><br />
                         </div>
                         <div>
-                            <input type="radio" id="type" name="type" value="" />
+                            <input type="radio" id="type" name="type" formControlName="furnishing" value="Fully-Furnished" />
                             <label for="type2" class="ml-2"> Fully-Furnished</label><br />
                         </div>
                       </div>
@@ -402,36 +461,36 @@
                       <div class="mt-2 flex gap-24">
                          <div class="space-y-3 ml-3">
                               <div>
-                                   <input type="checkbox" id="highlights" name="highlights" value="Bed"/>
+                                   <input type="checkbox" id="highlights" formControlName="highlights" name="highlights" value="Bed"/>
                                    <label for="HL1" class="ml-2"><i class="fa-solid fa-bed"></i>  Bed</label><br />
                               </div>
                               <div>
-                                   <input type="checkbox"  id="highlights"  name="highlights"  value="Air Conditionig"/> 
+                                   <input type="checkbox"  id="highlights" formControlName="highlights" name="highlights"  value="Air Conditionig"/> 
                                    <label for="HL2" class="ml-2"> <i class="fa-solid fa-wind"></i>  Air Conditionig</label><br/>
                               </div>
                               <div>
-                                   <input type="checkbox"  id="highlights"  name="highlights"  value="Wifi"/>
+                                   <input type="checkbox"  id="highlights" formControlName="highlights" name="highlights"  value="Wifi"/>
                                    <label for="HL3" class="ml-2"> <i class="fa-solid fa-wifi"></i>  Wifi</label><br />
                               </div>
                               <div>
-                                   <input  type="checkbox"  id="highlights"  name="highlights"  value="High Speed Internet Acess"/>
+                                   <input  type="checkbox"  id="highlights" formControlName="highlights" name="highlights"  value="High Speed Internet Acess"/>
                                   <label for="HL4" class="ml-2"> <i class="fa-brands fa-internet-explorer"></i>  High Speed Internet Acess</label ><br />
                               </div>
                           </div>
                           <div class="space-y-3">
                               <div>
-                                  <input type="checkbox" id="highlights" name="highlights"  value="Washer/Dryer"/>
+                                  <input type="checkbox" id="highlights" formControlName="highlights" name="highlights"  value="Washer/Dryer"/>
                                   <label for="HL5" class="ml-2"> <i class="fa-solid fa-sink"></i>  Washer/Dryer</label><br />
                               </div>
                               <div class="flex">
-                                  <input  type="checkbox"  id="highlights"  name="highlights"  value="Refrigerator" />
+                                  <input  type="checkbox"  id="highlights" formControlName="highlights"  name="highlights"  value="Refrigerator" />
                                   <div class="ml-1 flex">
                                   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M370.939 0H141.061c-15.844 0-28.735 12.89-28.735 28.735V512h47.02v-31.347h193.306V512h47.02V28.735C399.673 12.89 386.783 0 370.939 0zM143.673 496.327H128v-15.673h15.673v15.673zm240.327 0h-15.673v-15.673H384v15.673zm0-31.347H128V219.514h256V464.98zm0-261.139H128v-10.449h256v10.449zm0-26.123H128V28.735c0-7.202 5.859-13.061 13.061-13.061h229.878c7.201 0 13.061 5.859 13.061 13.061v148.983z" fill="#000000" opacity="1" data-original="#000000" class=""></path><path d="M180.277 61.735c-10.659 0-19.331 8.672-19.331 19.331v60.604c0 10.659 8.672 19.331 19.331 19.331 10.659 0 19.331-8.672 19.331-19.331V81.065c0-10.659-8.672-19.33-19.331-19.33zm3.657 79.934a3.661 3.661 0 0 1-3.657 3.657 3.661 3.661 0 0 1-3.657-3.657V81.065a3.661 3.661 0 0 1 3.657-3.657 3.661 3.661 0 0 1 3.657 3.657v60.604zM180.277 236.233c-10.659 0-19.331 8.672-19.331 19.331v60.604c0 10.659 8.672 19.331 19.331 19.331 10.659 0 19.331-8.672 19.331-19.331v-60.604c0-10.66-8.672-19.331-19.331-19.331zm3.657 79.934a3.661 3.661 0 0 1-3.657 3.657 3.661 3.661 0 0 1-3.657-3.657v-60.604a3.661 3.661 0 0 1 3.657-3.657 3.661 3.661 0 0 1 3.657 3.657v60.604z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>
                                    <label for="HL6" class="ml-2 ">Refrigerator</label><br />
                                   </div>
                               </div>
                               <div>
-                                  <input type="checkbox" id="highlights" name="highlights" value="Freezer"/>
+                                  <input type="checkbox" id="highlights" formControlName="highlights" name="highlights" value="Freezer"/>
                                   <label for="HL7" class="ml-2"> <i class="fa-solid fa-toilet"></i> Toilets</label><br />
                               </div>
                            </div>
@@ -440,7 +499,7 @@
                  <!--Other highlights-->
                  <div class="mt-2">
                       <label for="" class="block"> Any other highlights :</label>
-                      <textarea name="highlights" required
+                      <textarea name="highlights" required formControlName="other_highlights"
                       placeholder="....write other Highlights of your appartmnet..."
                        class="mt-2 pl-3 pt-1 w-96 h-20 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm" ></textarea>
                  </div>
@@ -448,7 +507,7 @@
   
   
               <!--button here-->
-              <div class="mt-4 text-right">
+              <div class="mt-4 ">
                 <button type="button" class="btn btn-secondary back-btn" data-target="#Neighbourhood-tab">
                   <i class="fa-solid fa-arrow-left"></i> Back
                 </button>
@@ -472,13 +531,13 @@
                     <!--first three images-->
                     <div class="ml-[15vh] mt-3 pl-10 h-28 w-[60vw] flex justify-center items-center bg-[#e6e6fa] border-dotted border-2 border-gray-600">
                           <div>
-                               <input type="file" id="ImageGallery" class="" accept="image/*"/>
+                               <input type="file" id="ImageGallery"  formControlName="image" class="" accept="image/*"/>
                           </div>
                           <div>
-                               <input  type="file" id="ImageGallery" class=""  accept="image/*"/>
+                               <input  type="file" id="ImageGallery" formControlName="image" class=""  accept="image/*"/>
                          </div>
                          <div>
-                              <input  type="file"  id="ImageGallery"  class=""  accept="image/*"/>
+                              <input  type="file"  id="ImageGallery"  formControlName="image" class=""  accept="image/*"/>
                          </div>
                     </div>
                     <!--floor plan-->
@@ -488,19 +547,29 @@
                           </div>
                           <div
                                class="mt-3 h-16 w-[60vw] ml-[15vh] border-dotted border-2 border-gray-600 bg-[#e6e6fa]">
-                               <input type="file" id="ImageGallery"class="mt-3 ml-24"accept="image/*"/>
+                               <input type="file" id="ImageGallery" formControlName="floor_plan"class="mt-3 ml-24"accept="image/*"/>
                           </div>
                     </div>
               </div>
-  
+               
+
+              
                  <!--button and submit-->
                  <div class="mt-4 text-right">
                   <button type="button" class="btn btn-secondary back-btn" data-target="#Units-tab">
                     <i class="fa-solid fa-arrow-left"></i> Back
                   </button>
-                  <button type="button" class="btn btn-success" (click)="submitForm()">
-                    Submit <i class="fa-solid fa-check"></i>
+                  </div>
+
+                <div class="mt-3 text-right">
+                  
+                  <button type="submit"
+                  class="btn btn-success"
+                  
+                  (click)="onSubmit()">submit
                   </button>
+                  <!--[disabled]="!propertyForm.valid"-->
+
                 </div>
 
                
