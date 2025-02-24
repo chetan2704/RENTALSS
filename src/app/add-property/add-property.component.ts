@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators,FormArray } from '@angular/forms';
 
 declare var bootstrap: any;
 
@@ -9,17 +9,18 @@ declare var bootstrap: any;
   styleUrls: ['./add-property.component.css']
 })
 export class AddPropertyComponent implements OnInit {
-
-  constructor(){}
+  
+  
+  constructor(private fb:FormBuilder){}
 
   ngOnInit(): void {
     this.setupTabNavigation();
+    this.propertyForm;
       
   }
 
   
-
- propertyForm= new FormGroup({
+  propertyForm= new FormGroup({
     //first tab
     phone:new FormControl("",[Validators.required,Validators.pattern('^[7-9]{1}[0-9]{9}$')]),
     email:new FormControl("",[Validators.required,Validators.email]),
@@ -35,18 +36,16 @@ export class AddPropertyComponent implements OnInit {
     zipcode:new FormControl("",[Validators.required]),
     area:new FormControl("",[Validators.required]),
     appartmentType:new FormControl("",[Validators.required]),
-    amenities:new FormControl("",[Validators.required]),
-    phone2:new FormControl("",[Validators.required]),
-    email2:new FormControl("",[Validators.required]),
-
+    amenities:new FormControl(""),
+    
     //third tab
-    name2:new FormControl("",[Validators.required]),
+    
     description:new FormControl("",[Validators.required]),
     features:new FormControl("",[Validators.required]),
 
 
     //fourth tab
-    Description:new FormControl("",[Validators.required]),
+    Neighbourhood_Description:new FormControl("",[Validators.required]),
     schoolname:new FormControl("",[Validators.required]),
     schooladdress:new FormControl("",[Validators.required]),
     school_distance: new FormControl("",[Validators.required]),
@@ -57,6 +56,9 @@ export class AddPropertyComponent implements OnInit {
     hospital_distance: new FormControl("",[Validators.required]),
     hospital_type: new FormControl("",[Validators.required]),
     hospital_rating: new FormControl("",[Validators.required]),
+
+
+    neighbourhoods: this.fb.array([this.createNeighbourhood()]),
 
     //fith tab
     price:new FormControl("",[Validators.required]),
@@ -72,12 +74,33 @@ export class AddPropertyComponent implements OnInit {
     floor_plan: new FormControl("",[Validators.required]),
 
 })
+get neighbourhoods(): FormArray {
+  return this.propertyForm.get('neighbourhoods') as FormArray;
+}
+createNeighbourhood(): FormGroup {
+  return this.fb.group({
+    schoolname: new FormControl("", [Validators.required]),
+    schooladdress: new FormControl("", [Validators.required]),
+    school_distance: new FormControl("", [Validators.required]),
+    school_rating: new FormControl("", [Validators.required]),
+    school_type: new FormControl("", [Validators.required]),
 
+    hospital_name: new FormControl("", [Validators.required]),
+    hospital_address: new FormControl("", [Validators.required]),
+    hospital_distance: new FormControl("", [Validators.required]),
+    hospital_rating: new FormControl("", [Validators.required]),
+    hospital_type: new FormControl("", [Validators.required]),
+  });
+}
+ // Add a new neighbourhood (school/hospital) form group
+ addNeighbourhood(): void {
+  this.neighbourhoods.push(this.createNeighbourhood());
+}
 
-
-
-
-
+// Remove a neighbourhood form group
+removeNeighbourhood(index: number): void {
+  this.neighbourhoods.removeAt(index);
+}
 
 
 
@@ -189,18 +212,32 @@ validateAboutPropertyTab(): boolean {
   return true;
 }
 
+
 validateNeighbourhoodTab(): boolean {
-  // Simplified validation for neighbourhood tab
-  const requiredControls = ['neighbourhoodDetails', 'school', 'hospital'];
-  
-  for (const controlName of requiredControls) {
-    const control = this.propertyForm.get(controlName);
-    if (control?.invalid) {
-      control.markAsTouched();
+  const neighbourhoodArray = this.propertyForm.get('neighbourhoods') as FormArray;
+
+  for (let i = 0; i < neighbourhoodArray.length; i++) {
+    const neighbourhoodGroup = neighbourhoodArray.at(i) as FormGroup;
+    const schoolnameControl = neighbourhoodGroup.get('schoolname');
+    const hospitalnameControl = neighbourhoodGroup.get('hospital_name');
+    const schoolDistanceControl = neighbourhoodGroup.get('school_distance');
+    const hospitalDistanceControl = neighbourhoodGroup.get('hospital_distance');
+
+    if (
+      schoolnameControl?.invalid ||
+      hospitalnameControl?.invalid ||
+      schoolDistanceControl?.invalid ||
+      hospitalDistanceControl?.invalid
+    ) {
+      schoolnameControl?.markAsTouched();
+      hospitalnameControl?.markAsTouched();
+      schoolDistanceControl?.markAsTouched();
+      hospitalDistanceControl?.markAsTouched();
       alert('Please fill in all required Neighbourhood details correctly');
       return false;
     }
   }
+
   return true;
 }
 
@@ -238,10 +275,14 @@ validateImagesTab(): boolean {
 
 
 
+
+
+
  onSubmit(){
 
   console.log("Form submitted succesfully")
   console.log(this.propertyForm);
+
  }
 
   

@@ -9,7 +9,7 @@
  
  <body>
   <div class="card">
-    <div class="card-header">Add New property?</div>
+    <div class="card-header ">Add New property?</div>
     <div class="card-body">
       <form [formGroup]="propertyForm" (ngSubmit)="onSubmit">
         <div class="container bg-[#ecf3f9] h-[98vh] w-[76vw] rounded-md">
@@ -58,7 +58,7 @@
               </button>
             </li>
           </ul>
-          <div class="tab-content" id="myTabContent">
+          <div class="tab-content " id="myTabContent">
             <!--FIRSTtab:personal details-->
             <div class="ml-4 tab-pane fade show active "  id="Basic-Info" role="tabpanel" aria-labelledby="home-tab">
                 <div class="mt-3">
@@ -181,7 +181,7 @@
                   </div>
                   <!--appttype-->
                   <div class="mt-2">
-                     <label for="type" class="block">Appartment Type :</label>
+                     <label for="type" class="block">Appartments Type :</label>
                        <div class="mt-3 flex gap-10">
                           <span> <input type="radio" id="type" formControlName="appartmentType" name="type" value="Residental-appartment" required/><label class="ml-2">Residental-appartment</label></span>
                           <span><input type="radio" id="type" formControlName="appartmentType" name="type" value="Penthouse" required/><label class="ml-2">Penthouse</label></span>
@@ -196,42 +196,25 @@
                   <!--ammenities-->
                   <div class="mt-2">
                        <label for="amenities" class="block">Available-amenities :</label>
-                          <div class="mt-2 flex gap-10">
-                            <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities"  value="Parking"/><label class="ml-2">Parking</label></span>
-                            <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Laundry" /><label class="ml-2">Laundry</label></span>
-                            <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Fitness Area"  /><label class="ml-2">Fitness Area</label></span>
-                            <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Playing Area" /><label class="ml-2">Playing Area</label></span>
-                            <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Security" /><label class="ml-2">Security</label></span>
-                            <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Internet" /><label class="ml-2">Internet Acess</label></span>
-                            <span><input  type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Pool" /><label class="ml-2">Pool</label></span>
-                          </div>  
-                  </div>
-                  <!--contact at--> 
-                  <div class="mt-3">
-                       <label for="officeHours" class="block">Contact this property at :</label>
-                       <div class="mt-2 flex gap-10">
-                          <div>
-                             <label>Phone :</label><input type="tel"
-                            id="officeHours" formControlName="phone2" name="officeHours"pattern="^[7-9]{1}[0-9]{9}$" class="block" required  placeholder="9*********"
-                            class="w-64 h-8 pl-2 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
-                            <div *ngIf="propertyForm.get('phone2')?.invalid && propertyForm.get('phone2')?.touched" class="text-danger">
-                              <small *ngIf="propertyForm.get('phone2')?.errors?.['required']">Contact phone is required</small>
-                              <small *ngIf="propertyForm.get('phone2')?.errors?.['pattern']">Please enter a valid 10-digit number</small>
+                        <div>
+                            <div class="mt-2 flex gap-14">
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities"  value="Pets care"/><label class="ml-2">Pets care</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Laundry" /><label class="ml-2">Laundry</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Fitness Area"  /><label class="ml-2">Fitness Area</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities"  name="amenities" value="Playing Area" /><label class="ml-2">Playing Area</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Security" /><label class="ml-2">Security</label></span>
+                            </div>  
+                            <div class="mt-2 flex gap-12">
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Pool Area"><label class="ml-2">Pool Area</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Elevators"><label class="ml-2">Elevators</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Club HOuse"><label class="ml-2">Club HOuse</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="CourtYard"><label class="ml-2">CourtYard</label></span>
+                              <span><input type="checkbox" id="amenities" formControlName="amenities" name="amenities" value="Roof Terrace"><label class="ml-2">Roof Terrace</label></span>
                             </div>
-                          
-                          </div>
-                          <div>
-                            <label>Email : </label> 
-                            <input type="email" id="email" formControlName="email2"  pattern=""size="30"required placeholder="abc123@gmail.com"
-                              class="pl-3 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
-                              <div *ngIf="propertyForm.get('email2')?.invalid && propertyForm.get('email2')?.touched" class="text-danger">
-                                <small *ngIf="propertyForm.get('email2')?.errors?.['required']">Contact email is required</small>
-                                <small *ngIf="propertyForm.get('email2')?.errors?.['pattern']">Please enter a valid email address</small>
-                              </div>
-                               
-                          </div>
-                       </div>
+                        </div>
                   </div>
+                  
+                  
         
                         
                 
@@ -256,14 +239,7 @@
             </div>
             <!--Third tab :About propertyy-->
             <div class=" ml-4 mt-3 tab-pane fade" id="About-property" role="tabpanel" aria-labelledby="AboutProperty-tab">
-                  <!--property name-->
-                  <div>
-                     <label for="title" class="block">Property-Name :</label>
-                      <input type="text" id="title" formControlName="name2" name="title" required class="mt-2 pl-3 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
-                      <div *ngIf="propertyForm.get('name2')?.invalid && propertyForm.get('name2')?.touched" class="text-danger">
-                        <small *ngIf="propertyForm.get('name2')?.errors?.['required']">Property name is required</small>
-                      </div>
-                  </div>
+                  
                   <!--property-description-->
                   <div class="mt-5">
                       <label for="description" class="block" >Property-Description :</label>
@@ -277,12 +253,23 @@
                   <!--property feature-->
                   <div class="mt-5">
                       <label for="features" class="block"  >Appartment features :</label>
-                     <textarea name="features" required formControlName="features"
-                      placeholder="....write the features of your appartmnet..."
-                      class="mt-2 pl-3 w-96 h-24 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"></textarea>
-                      <div *ngIf="propertyForm.get('features')?.invalid && propertyForm.get('features')?.touched" class="text-danger">
-                        <small *ngIf="propertyForm.get('features')?.errors?.['required']">Features description is required</small>
-                      </div>
+                      <div class="mt-2 " >
+                         <div class="flex gap-14">
+                           <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Fire Alarm"/><label class="ml-2">Fire Alarm</label></span>
+                           <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Wheel chair access"/><label class="ml-2">Wheel chair access</label></span>
+                           <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Lifts"/><label class="ml-2">Lifts/elevators</label></span>
+                           <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Balcony"/><label class="ml-2">Balcony</label></span>
+                           <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Kitchen"/><label class="ml-2">Kitchen</label></span>
+                         </div> 
+                         <div class="mt-3 flex gap-12">  
+                          <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Public Transport"/><label class="ml-2">Public Transport</label></span>
+                          <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Pets allowed"/><label class="ml-2">Pets allowed</label></span>
+                          <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Internet Access"/><label class="ml-2">Internet Access</label></span>
+                          <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="watchman"/><label class="ml-2">watchman</label></span>
+                          <span><input type="checkbox" id="features" formControlName="features" name="amenities"  value="Cable Ready"/><label class="ml-2">Cable Ready</label></span>
+                         </div>
+                      </div>  
+                     
                   </div>
     
     
@@ -316,8 +303,9 @@
                         <small *ngIf="propertyForm.get('Neighbourhood_Description')?.errors?.['required']">Neighbourhood description is required</small>
                       </div>
                    </div>
-                   <!--school details-->
-                   <div>
+
+                <!--school details-->
+                <div >
                      <label class="block"> School's Name :</label><input type="text" id=" school" formControlName="schoolname" 
                      placeholder="School nearby.. "required
                       class="pl-1 pt-1 bg-[#e2dfd2] rounded-md border-gray-600 shadow-sm"/>
@@ -357,7 +345,12 @@
                             <input type="number" id="rating" required formControLName="school_rating" name="rating" min="0" max="10"
                             class="mt-2 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm"/>
                        </div>
+                       
                   </div>
+                 
+                  
+
+
                   <!--hospital details-->
                   <div class="mt-2">
                         <label class="block"> Hospital Name :</label>

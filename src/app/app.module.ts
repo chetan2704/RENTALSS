@@ -7,6 +7,8 @@ import { HelpcentreComponent } from './helpcentre/helpcentre.component';
 import { BarComponent } from './bar/bar.component';
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NewAddPropertyComponent } from './new-add-property/new-add-property.component';
+
 
 @NgModule({
   declarations: [
@@ -14,7 +16,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     PriceComponent,
     HelpcentreComponent,
     BarComponent,
-    AddPropertyComponent
+    AddPropertyComponent,
+    NewAddPropertyComponent,
+    
+  
   ],
   imports: [
     BrowserModule,
