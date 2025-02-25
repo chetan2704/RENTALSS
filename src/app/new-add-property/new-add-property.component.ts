@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { findIndex } from 'rxjs';
 
 @Component({
   selector: 'app-new-add-property',
@@ -12,17 +13,14 @@ export class NewAddPropertyComponent implements OnInit {
   amenitiesList = ['Pets care', 'Laundry', 'Fitness Area', 'Playing Area','pool','club house','CourtYard'];
   featureList = ['WiFi', 'Air Conditioner', 'Pets Allowed', 'Balcony', 'Modular Kitchen', 
                   'Wheel Chair Access', 'Internet Access', 'Watchman', 'Transport'];
+  highlightList:string[]=['Good Connectivity','Dry Cleaning Service','Lounge','Closets','Good view','Super Markets']
 
   constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit() {
     this.propertyForm = this.fb.group({
       //first tab
-      contactUs: this.fb.group({
-        
-        phone: ['', Validators.required],
-        email: ['', Validators.required]
-      }),
+      
 
       //second tab
       propertyDetails:this.fb.group({
@@ -36,14 +34,29 @@ export class NewAddPropertyComponent implements OnInit {
         state: ['', Validators.required],
         country: ['', Validators.required]
        }),
+       thumbnail:this.fb.group({
+        area:['',Validators.required],
+        type:['',Validators.required],
+        parking:['',Validators.required]
+        
+       }),
+       amenities: this.fb.array(this.amenitiesList.map(() => this.fb.control(false))),
+       officeHours: this.fb.group({
+        time: ['9:00am -6:00pm', Validators.required],
+        timeZone: ['CST', Validators.required],
+        workingDays: this.fb.array(['Monday','tuesday'])
       }),
-      amenities: this.fb.array(this.amenitiesList.map(() => this.fb.control(false))),
+      contactUs: this.fb.group({
+        
+        phone: ['', Validators.required],
+        email: ['', Validators.required]
+      }),
 
-      officeHours: this.fb.group({
-        time: ['', Validators.required],
-        timeZone: ['', Validators.required],
-        workingDays: this.fb.array([])
+       
       }),
+      // amenities: this.fb.array(this.amenitiesList.map(() => this.fb.control(false))),
+
+      
       //third tab
       aboutUs: this.fb.group({
         description: ['', Validators.required],
@@ -58,41 +71,23 @@ export class NewAddPropertyComponent implements OnInit {
         description: ['', Validators.required],
         education: this.fb.group({
           title: ['schools', Validators.required],
-          details: this.fb.group({
-            name:['',Validators.required],
-            address:['',Validators.required],
-            distance:['',Validators.required],
-            type:['',Validators.required],
-            rating:['',Validators.required]
-          })
-        }),
+          details: this.fb.array([])
+           }),
         hospital: this.fb.group({
           title: ['hospital', Validators.required],
-          details: this.fb.group({
-            name:['',Validators.required],
-            address:['',Validators.required],
-            distance:['',Validators.required],
-            type:['',Validators.required],
-            rating:['',Validators.required]
-          })
+          details: this.fb.array([])
         })
       }),
 
       //tab5
-      availableUnits: this.fb.group({
-        rows: this.fb.group({
-          unit: ['', Validators.required],
-          price: ['', Validators.required],
-          usableArea: ['', Validators.required],
-          measureUnit:['',Validators.required],
-          availableFrom: ['', Validators.required],
-          furnishing: this.fb.group({
-            type:['', Validators.required],
-          
-          }),
-          highlights:['',Validators.required]
-        }),
-      }),
+        availableUnits: this.fb.group({
+       
+        rows: this.fb.array([]),
+        
+       }),
+
+     
+    
       
       
 
@@ -110,11 +105,18 @@ export class NewAddPropertyComponent implements OnInit {
      
       
     });
+    
+    this.addAvailableUnitsRow();
+    this.addEducationDetail();
+    this.addHospitalDetail();
+    
+   
   }
+
    
 
   get amenities() {
-    return this.propertyForm.get('amenities') as FormArray;
+    return this.propertyForm.get('propertyDetails.amenities') as FormArray;
   }
   logSelectedAmenities() {
     const selectedAmenities = this.amenities.controls
@@ -135,10 +137,26 @@ export class NewAddPropertyComponent implements OnInit {
       .filter(value => value !== null);
     return selectedfeature;
   }
-
-  get availableUnitsRows() {
-    return this.propertyForm.get('availableUnits.rows') as FormArray;
+  
+  get availableUnitsRows(): FormArray {
+    return this.propertyForm.get('availableUnits')?.get('rows') as FormArray;
   }
+ 
+  get highlights():FormArray{
+    return this.propertyForm.get('availableUnits.rows.highlights') as FormArray;
+  }
+ 
+  logSeletedhighlight() {
+    const selectedhighlight = this.highlights.controls
+      .map((control, i) => control.value ? this.featureList[i] : null)
+      .filter(value => value !== null);
+    return selectedhighlight;
+  }
+  
+  get kitchen():FormArray{
+    return this.propertyForm.get('availableUnits')?.get('kitchen') as FormArray;
+  }
+  
 
   get neighborHoodDetails() {
     return this.propertyForm.get('neighborHood')?.get('details') as FormArray;
@@ -146,11 +164,11 @@ export class NewAddPropertyComponent implements OnInit {
 
  
   get educationDetails() {
-    return this.propertyForm.get('education')?.get('details') as FormArray;
+    return this.propertyForm.get('neighborHood.education.details') as FormArray;
   }
 
   get hospitalDetails() {
-    return this.propertyForm.get('hospital')?.get('details') as FormArray;
+    return this.propertyForm.get('neighborHood.hospital.details') as FormArray;
   }
 
   get imgGalleryDetails(){
@@ -164,12 +182,19 @@ export class NewAddPropertyComponent implements OnInit {
       price: ['', Validators.required],
       usableArea: ['', Validators.required],
       measureUnit: ['', Validators.required],
-      availabilFrom: ['', Validators.required],
-      
-      
+      availableFrom: ['', Validators.required],
+      furnishing:this.fb.group({
+        type:['',Validators.required]
+      }),
+      //highlights: this.fb.array(this.highlightList.map(() => this.fb.control(false))),
+      highlights:this.fb.array(['cake','biscuit','tea']),
+      kitchen:this.fb.array([])
     }));
   }
-
+  removeAvailableUnitsRow(index: number) {
+    this.availableUnitsRows.removeAt(index);
+  }
+   
   
 
   addEducationDetail() {
@@ -182,6 +207,11 @@ export class NewAddPropertyComponent implements OnInit {
     }));
   }
 
+  removEducationDetail(index:number){
+    this.educationDetails.removeAt(index);
+
+  }
+
   addHospitalDetail() {
     this.hospitalDetails.push(this.fb.group({
       name: ['', Validators.required],
@@ -191,12 +221,22 @@ export class NewAddPropertyComponent implements OnInit {
       rating: ['', Validators.required]
     }));
   }
+  removeHospitalDetail(index:number){
+    this.hospitalDetails.removeAt(index);
+
+  }
+
 
   onSubmit() {
 
     const formValue = this.propertyForm.value;
-    formValue.amenities = this.logSelectedAmenities();
+    formValue.propertyDetails.amenities = this.logSelectedAmenities();
     formValue.aboutUs.highlights.features = this.logSelectedfeature();
+    
+    
+    
+    
+  
     
     
     alert("Form Submitted!");
