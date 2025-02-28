@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators, Form } from '@angular/forms';
 import { findIndex } from 'rxjs';
 
 @Component({
@@ -13,16 +13,13 @@ export class NewAddPropertyComponent implements OnInit {
   amenitiesList = ['Pets care', 'Laundry', 'Fitness Area', 'Playing Area','pool','club house','CourtYard'];
   featureList = ['WiFi', 'Air Conditioner', 'Pets Allowed', 'Balcony', 'Modular Kitchen', 
                   'Wheel Chair Access', 'Internet Access', 'Watchman', 'Transport'];
-  highlightList:string[]=['Good Connectivity','Dry Cleaning Service','Lounge','Closets','Good view','Super Markets']
+ highlightList:string[]=['Good Connectivity','Dry Cleaning Service','Lounge','Closets','Good view','Super Markets']
 
   constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit() {
     this.propertyForm = this.fb.group({
-      //first tab
       
-
-      //second tab
       propertyDetails:this.fb.group({
 
         name: ['', Validators.required],
@@ -34,13 +31,13 @@ export class NewAddPropertyComponent implements OnInit {
         state: ['', Validators.required],
         country: ['', Validators.required]
        }),
-       thumbnail:this.fb.group({
+       thumbnail:['',Validators.required],
         area:['',Validators.required],
         type:['',Validators.required],
-        parking:['',Validators.required]
-        
-       }),
+        parking:['',Validators.required],
+        size:['',Validators.required],
        amenities: this.fb.array(this.amenitiesList.map(() => this.fb.control(false))),
+
        officeHours: this.fb.group({
         time: ['9:00am -6:00pm', Validators.required],
         timeZone: ['CST', Validators.required],
@@ -50,71 +47,139 @@ export class NewAddPropertyComponent implements OnInit {
         
         phone: ['', Validators.required],
         email: ['', Validators.required]
-      }),
-
-       
-      }),
-      // amenities: this.fb.array(this.amenitiesList.map(() => this.fb.control(false))),
-
+          }),
+     }),
       
-      //third tab
+      communityAmenities:this.fb.group({
+        features:this.fb.array([])
+      }),
+
+      apartmnetFeatures:this.fb.group({
+        features:this.fb.array([])
+
+      }),
+      
       aboutUs: this.fb.group({
         description: ['', Validators.required],
-        highlights: this.fb.group({
-          features: this.fb.array(this.featureList.map(() => this.fb.control(false)))
-        }),
+        details:['',Validators.required],
+         }),
+
+      highlights:this.fb.group({
+        features:this.fb.array(this.featureList.map(() => this.fb.control(false)))
       }),
-      
       
       //Tab 4
       neighborHood: this.fb.group({
         description: ['', Validators.required],
-        education: this.fb.group({
-          title: ['schools', Validators.required],
-          details: this.fb.array([])
-           }),
-        hospital: this.fb.group({
+        details:['',Validators.required],
+        }),
+
+      education: this.fb.group({
+        title: ['schools', Validators.required],
+        details: this.fb.array([
+          this.createEduDetailGroup(),
+        ])
+         }),
+         
+      hospital: this.fb.group({
           title: ['hospital', Validators.required],
-          details: this.fb.array([])
-        })
+          details: this.fb.array([
+            this.createHosDetailGroup(),
+          ])
+        }),
+
+      transportation:this.fb.group({
+        title:['Transportation',Validators.required],
+        details:this.fb.array([this.createTransportDetailGroup()])
+
       }),
 
-      //tab5
-        availableUnits: this.fb.group({
-       
-        rows: this.fb.array([]),
-        
+      availableUnits:this.fb.group({
+        rows:this.fb.array([
+          this.createAvailableUnitsGroup()])
        }),
 
-     
-    
-      
-      
-
-      // Tab 6
       imgGallery:this.fb.group({
-         img1:['',Validators.required],
-         img2:['',Validators.required],
-         img3:['',Validators.required],
-         floorplan:this.fb.group({
-           img1:['',Validators.required]
-         })
-      })
-      
+        imageGallery:this.fb.array([
+          this.createImageGalleryGroup('ImageGallery'),
+          this.createImageGalleryGroup('Photos'),
+          this.createImageGalleryGroup('floorplan')
+          
 
-     
-      
+        ]),
+
+      })
+
+
     });
     
-    this.addAvailableUnitsRow();
-    this.addEducationDetail();
-    this.addHospitalDetail();
-    
-   
   }
 
+  createEduDetailGroup():FormGroup{
+    return this.fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      distance: ['', Validators.required],
+      type: ['', Validators.required],
+      rating: ['', Validators.required]
+
+    })
+  }
+  createHosDetailGroup():FormGroup{
+    return this.fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      distance: ['', Validators.required],
+      type: ['', Validators.required],
+      rating: ['', Validators.required]
+
+    })
+
+  }
+   createTransportDetailGroup():FormGroup{
+    return this.fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      distance: ['', Validators.required],
+      type: ['', Validators.required],
+      rating: ['', Validators.required]
+
+    })
+
+   }
+  createAvailableUnitsGroup():FormGroup{
+    return this.fb.group({
+      unit:['',Validators.required],
+      price:['',Validators.required],
+      usableArea:['',Validators.required],
+      measureUnit:['',Validators.required],
+      availableFrom:['',Validators.required],
+      furnishing:this.fb.group({
+        type:['',Validators.required]
+      }),
+      highlights:this.fb.array(this.highlightList.map(() => this.fb.control(false))),
+      kitchen:this.fb.array([])
+
+    })
+    }
+
+    createImageGalleryGroup(type:string):FormGroup{
+     return this.fb.group({
+       type:['',Validators.required],
+       images:this.fb.array([
+        this.fb.group({
+          url:['',Validators.required],
+          alt:['',Validators.required]
+        })
+       ])
+     })
+    }
    
 
+    get images(){
+      return this.propertyForm.get('imgGallery.imageGallery') as FormArray;
+    }
+  //amenities
   get amenities() {
     return this.propertyForm.get('propertyDetails.amenities') as FormArray;
   }
@@ -124,119 +189,101 @@ export class NewAddPropertyComponent implements OnInit {
       .filter(value => value !== null);
     return selectedAmenities;
   }
-  get officeHoursWorkingDays() {
-    return this.propertyForm.get('officeHours')?.get('workingDays') as FormArray;
+//features 
+  get features(){
+    return this.propertyForm.get('highlights.features') as FormArray;
+  }
+  logselectedFeatures(){
+    const selectedFeatures =this.features.controls
+    .map((control,i) => control.value ? this.featureList[i] :null)
+    .filter(value => value!== null);
+    return selectedFeatures;
+  }
+///parking
+  get parking(){
+    return this.propertyForm.get('propertyDetails.parking') as FormArray;
   }
 
-  get aboutUsDetails() {
-    return this.propertyForm.get('aboutUs.highlights.features') as FormArray;
+  //education
+  get educationDetails(){
+    return this.propertyForm.get('education.details') as FormArray;
   }
-  logSelectedfeature() {
-    const selectedfeature = this.aboutUsDetails.controls
-      .map((control, i) => control.value ? this.featureList[i] : null)
-      .filter(value => value !== null);
-    return selectedfeature;
+  addeducationDetail(){
+    this.educationDetails.push(this.createEduDetailGroup());
   }
-  
-  get availableUnitsRows(): FormArray {
-    return this.propertyForm.get('availableUnits')?.get('rows') as FormArray;
-  }
- 
-  get highlights():FormArray{
-    return this.propertyForm.get('availableUnits.rows.highlights') as FormArray;
-  }
- 
-  logSeletedhighlight() {
-    const selectedhighlight = this.highlights.controls
-      .map((control, i) => control.value ? this.featureList[i] : null)
-      .filter(value => value !== null);
-    return selectedhighlight;
-  }
-  
-  get kitchen():FormArray{
-    return this.propertyForm.get('availableUnits')?.get('kitchen') as FormArray;
-  }
-  
-
-  get neighborHoodDetails() {
-    return this.propertyForm.get('neighborHood')?.get('details') as FormArray;
+  removeEduDetail(index: number) {
+    if (index > 0) {
+      this.educationDetails.removeAt(index);
+    }
   }
 
- 
-  get educationDetails() {
-    return this.propertyForm.get('neighborHood.education.details') as FormArray;
+  //hospital
+  get hospitalDetails(){
+    return this.propertyForm.get('hospital.details') as FormArray;
+  }
+  addhospitalDetail(){
+    this.hospitalDetails.push(this.createHosDetailGroup());
+  }
+  removeHosDetail(index:number){
+    if(index > 0){
+      this.hospitalDetails.removeAt(index);
+    }
   }
 
-  get hospitalDetails() {
-    return this.propertyForm.get('neighborHood.hospital.details') as FormArray;
+  //tranposrtation
+  get transportDetails(){
+    return this.propertyForm.get('transportation.details') as FormArray;
+  }
+  addTransport(){
+    this.transportDetails.push(this.createHosDetailGroup());
+  }
+  removeTransDetail(index:number){
+    if(index >0){
+      this.transportDetails.removeAt(index);
+    }
+  }
+// available units
+  get availableUnits(){
+    return this.propertyForm.get('availableUnits.rows') as FormArray;
+   }
+
+  getHighlightsForRow(rowIndex: number) {
+    return (this.availableUnits.at(rowIndex) as FormGroup).get('highlights') as FormArray;
   }
 
-  get imgGalleryDetails(){
-    return this.propertyForm.get('imgGallery')?.get('details') as FormArray;
+   logselectedHighlights(rowIndex:number){
+    const row = (this.propertyForm.get('availableUnits.rows') as FormArray).at(rowIndex);
+    const highlightsArray = row.get('highlights') as FormArray;
 
-  }
-   
-  addAvailableUnitsRow() {
-    this.availableUnitsRows.push(this.fb.group({
-      unit: ['', Validators.required],
-      price: ['', Validators.required],
-      usableArea: ['', Validators.required],
-      measureUnit: ['', Validators.required],
-      availableFrom: ['', Validators.required],
-      furnishing:this.fb.group({
-        type:['',Validators.required]
-      }),
-      //highlights: this.fb.array(this.highlightList.map(() => this.fb.control(false))),
-      highlights:this.fb.array(['cake','biscuit','tea']),
-      kitchen:this.fb.array([])
-    }));
-  }
-  removeAvailableUnitsRow(index: number) {
-    this.availableUnitsRows.removeAt(index);
-  }
-   
-  
+    const selectedhighlights = highlightsArray.controls
+    .map((control, i) => control.value ? this.highlightList[i] : null)
+    .filter(value => value !== null);
+    
+  return selectedhighlights;
+   }
 
-  addEducationDetail() {
-    this.educationDetails.push(this.fb.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      distance: ['', Validators.required],
-      type: ['', Validators.required],
-      rating: ['', Validators.required]
-    }));
-  }
+   addHighlights(){
+    this.availableUnits.push(this.createAvailableUnitsGroup());
+   }
+   removeHighlights(index:number){
+    
+      this.availableUnits.removeAt(index);
+    
+   }
+//images
 
-  removEducationDetail(index:number){
-    this.educationDetails.removeAt(index);
 
-  }
-
-  addHospitalDetail() {
-    this.hospitalDetails.push(this.fb.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      distance: ['', Validators.required],
-      type: ['', Validators.required],
-      rating: ['', Validators.required]
-    }));
-  }
-  removeHospitalDetail(index:number){
-    this.hospitalDetails.removeAt(index);
-
-  }
 
 
   onSubmit() {
-
     const formValue = this.propertyForm.value;
     formValue.propertyDetails.amenities = this.logSelectedAmenities();
-    formValue.aboutUs.highlights.features = this.logSelectedfeature();
+    formValue.highlights.features=this.logselectedFeatures();
     
+    this.availableUnits.controls.forEach((row, index) => {
+      formValue.availableUnits.rows[index].highlights = this.logselectedHighlights(index);
+    });
     
-    
-    
-  
     
     
     alert("Form Submitted!");
