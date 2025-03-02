@@ -65,7 +65,7 @@
                    <label for="phone" class="block text-lg pl-4">Phone number :</label>
                    <input type="tel" formControlName="phone"
                     id="phone"  name="phone"  pattern='^[7-9]{1}[0-9]{9}$' placeholder="9123456789"
-                    class="ml-4 pl-2 mt-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-sm" required/>
+                    class="ml-4 pl-2 mt-2 border-2 w-64 h-8 bg-[#E2DFD2] rounded-md border-gray-600 shadow-lg" required/>
                     <div *ngIf="propertyForm.get('phone')?.invalid && propertyForm.get('phone')?.touched" class="text-danger  ml-4">
                       <small *ngIf="propertyForm.get('phone')?.errors?.['required']">Phone number is required</small>
                       <small *ngIf="propertyForm.get('phone')?.errors?.['pattern']">Please enter a valid 10-digit number starting with 7-9</small>
