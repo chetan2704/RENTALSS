@@ -27,7 +27,7 @@ input{
     
     border: 2px ;
     outline-color: #A6B5AC;
-    
+    .class:shadowmd
 }
 textarea{
     background-color: white;
@@ -40,24 +40,4 @@ select{
     
     border: 2px;
     outline-color: #A6B5AC;
-}
-
-#remove{
-    background:#EB212E;
-}
-#add:hover{
-    color:black;
-
-}
-#submit{
-    background:  #00B140;
-    width: 300px;
-    
-}
-label{
-    font-size: medium;
-}
-#removelast{
-    background:#EB212E ;
-    height: 40px;
 }
