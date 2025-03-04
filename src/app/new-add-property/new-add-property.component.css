@@ -1,7 +1,7 @@
 button {
     padding: 10px 15px;
     border: none;
-    background: #A6B5AC;
+    background: #C5BAFF;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -9,18 +9,25 @@ button {
     margin-top: 10px;
 }
 
+.nav-link.active {
+    background-color: #C4D9FF;
+  }
+  .nav-link {
+    transition: background-color 0.5s ease;
+  }
+
 body{
     background-color: white;
 }
 .container{
-    background:#F4F5F5;
+    background:#FBFBFB;
 }
 input{
     background:white;
     
     border: 2px ;
     outline-color: #A6B5AC;
-    .class:shadowmd
+    
 }
 textarea{
     background-color: white;
@@ -33,4 +40,24 @@ select{
     
     border: 2px;
     outline-color: #A6B5AC;
+}
+
+#remove{
+    background:#EB212E;
+}
+#add:hover{
+    color:black;
+
+}
+#submit{
+    background:  #00B140;
+    width: 300px;
+    
+}
+label{
+    font-size: medium;
+}
+#removelast{
+    background:#EB212E ;
+    height: 40px;
 }

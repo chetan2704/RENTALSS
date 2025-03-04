@@ -169,6 +169,7 @@ export class NewAddPropertyComponent implements OnInit{
   }
 
   removeImage(groupIndex: number, imageIndex: number) {
+    
     this.getImagesFormArray(groupIndex).removeAt(imageIndex);
   }
 
