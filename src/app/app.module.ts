@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { PriceComponent } from './price/price.component';
 import { HelpcentreComponent } from './helpcentre/helpcentre.component';
 import { BarComponent } from './bar/bar.component';
-import { AddPropertyComponent } from './add-property/add-property.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewAddPropertyComponent } from './new-add-property/new-add-property.component';
 
@@ -16,7 +16,6 @@ import { NewAddPropertyComponent } from './new-add-property/new-add-property.com
     PriceComponent,
     HelpcentreComponent,
     BarComponent,
-    AddPropertyComponent,
     NewAddPropertyComponent,
     
   

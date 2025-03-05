@@ -1,5 +1,5 @@
 <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
-  <div class="container  border  h-[96vh] w-[70vw] rounded-md  overflow-y-auto">
+  <div class="container  border  h-[96vh] w-[78vw] rounded-md  overflow-y-auto">
     <ul class="nav nav-tabs flex gap-1" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active  hover:text-gray-800 " id="home-tab" data-bs-toggle="tab" data-bs-target="#Basic-Info" type="button"
@@ -504,7 +504,7 @@
       </div>
       <!--SIXTH TAB-->
       <div class="tab-pane fade flex" id="Images" role="tabpanel" aria-labelledby="Images-tab">
-        <div formGroupName="imgGallery" class=" mt-4 w-[43vw]  ml-52 border-2 border-dotted ">
+        <div formGroupName="imgGallery" class=" mt-4 w-[47vw]  ml-44 border-2 border-dotted ">
           <div formArrayName="imageGallery" *ngFor="let gallery of imageGalleryFormArray.controls; let i = index" class="ml-5 mb-3" >
             <div [formGroupName]="i" >
               <h3>{{gallery.get('type')?.value}}</h3>
